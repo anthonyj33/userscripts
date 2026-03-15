@@ -34,6 +34,7 @@
             if (link && link.href) {
                 window.open(link.href, '_blank');
             }
+            document.querySelector('.popover_close')?.click();
         }, 120);
 
     }, true);

@@ -2,7 +2,7 @@
 // @name         Open Canvas calendar event in new tab
 // @namespace    https://canvas.eee.uci.edu
 // @version      2026-03-15
-// @description  Enable Cmd+Click on Canvas calendar event to open in new tab
+// @description  Enable Cmd/Ctrl+Click or middle click on Canvas calendar event to open in new tab
 // @author       https://github.com/anthonyj33
 // @match        https://canvas.eee.uci.edu/calendar
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=uci.edu
@@ -12,9 +12,11 @@
 (function () {
     'use strict';
 
-    document.addEventListener('click', function (e) {
-
-        if (!(e.metaKey || e.ctrlKey)) return;
+    document.addEventListener('click', handler, true);
+    document.addEventListener('auxclick', handler, true);
+    
+    function handler(e) {
+        if (!(e.button === 1 || e.metaKey || e.ctrlKey)) return;
 
         const eventEl = e.target.closest('.fc-event');
         if (!eventEl) return;
@@ -36,7 +38,6 @@
             }
             document.querySelector('.popover_close')?.click();
         }, 120);
-
-    }, true);
+    }
 
 })();
